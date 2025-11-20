@@ -29,4 +29,5 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             ./ \
-            ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:${{ secrets.
+            ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:${{ secrets.VM_PATH }}
+
