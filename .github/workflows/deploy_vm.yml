@@ -23,10 +23,11 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.VM_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Install rsync
+      # NOWY KROK – instalacja rsync na zdalnej maszynie
+      - name: Ensure rsync is installed on VM
         run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync
+          ssh ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
+            'sudo apt-get update && sudo apt-get install -y rsync'
 
       - name: Deploy app via rsync
         run: |
@@ -35,4 +36,3 @@ jobs:
             --exclude='.github' \
             ./ \
             ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:${{ secrets.VM_PATH }}
-
